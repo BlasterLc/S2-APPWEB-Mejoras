@@ -1,57 +1,49 @@
 import { useState } from "react";
 import Stepper from "../components/Flujo/Stepper";
+import StepOperador from "../components/Flujo/StepOperador";
+import StepCliente from "../components/Flujo/StepCliente";
 
 function NuevoRetiro() {
 
 const [paso, setPaso] = useState(1);
 
   const [formulario, setFormulario] = useState({
+
     operador: "",
-    sucursal: ""
+    sucursal: "",
+
+    cliente: "",
+
+    tipoDocumento: "",
+    numeroDocumento: "",
+
+    documentoVigente: false,
+
+    tipoRetiro: "",
+
+    tercero: "",
+    autorizacion: false,
+
+    producto: null
   });
+
   return (
     <div className="retiro-container">
 
       <Stepper paso={paso} />
 
       {paso === 1 && (
-        <>
-          <h2>Datos del Operador</h2>
-
-          <div className="form-group">
-            <label>Nombre del Operador</label>
-
-            <input
-              type="text"
-              value={formulario.operador}
-              onChange={(e) =>
-                setFormulario({
-                  ...formulario,
-                  operador: e.target.value
-                })
-              }
-            />
-          </div>
-
-          <div className="form-group">
-            <label>Sucursal</label>
-
-            <input
-              type="text"
-              value={formulario.sucursal}
-              onChange={(e) =>
-                setFormulario({
-                  ...formulario,
-                  sucursal: e.target.value
-                })
-              }
-            />
-          </div>
-        </>
+        <StepOperador
+          formulario={formulario}
+          setFormulario={setFormulario}
+        />
       )}
 
       {paso === 2 && (
-        <h2>Datos del Cliente</h2>
+        <StepCliente
+          formulario={formulario}
+          setFormulario={setFormulario}
+        />
       )}
 
       {paso === 3 && (
