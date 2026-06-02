@@ -32,3 +32,56 @@
 
   border-radius: 4px;
 }
+
+.stepper {
+  display: flex;
+
+  justify-content: space-between;
+
+  align-items: center;
+
+  margin-bottom: 3rem;
+
+  gap: .5rem;
+}
+
+.step {
+  display: flex;
+
+  align-items: center;
+
+  gap: .5rem;
+
+  color: #888;
+
+  font-size: .9rem;
+}
+
+.step-circle {
+  width: 32px;
+
+  height: 32px;
+
+  border-radius: 50%;
+
+  background: #bdbdbd;
+
+  color: white;
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  font-weight: bold;
+}
+
+.step.activo .step-circle {
+  background: #1976d2;
+}
+
+.step.activo {
+  color: #1976d2;
+  font-weight: bold;
+}

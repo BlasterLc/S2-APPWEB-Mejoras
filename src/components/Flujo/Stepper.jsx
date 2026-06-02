@@ -17,15 +17,15 @@ function Stepper({ paso }) {
 
         <div
           key={index}
-          className={
-            paso === index + 1
-            ? "activo"
-            : ""
-          }
+          className={`step ${paso === index + 1 ? "activo" : ""}`}
         >
-          {index + 1}
 
-          {nombre}
+          <div className="step-circle">
+            {index + 1}
+          </div>
+
+          <span>{nombre}</span>
+
         </div>
 
       ))}
