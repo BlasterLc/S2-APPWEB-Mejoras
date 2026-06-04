@@ -1,16 +1,43 @@
+import { useState } from "react";
 import { useRetiros } from "../../context/RetiroContext";
 
 function TablaRetiros() {
 
   const { retiros } = useRetiros();
 
-  const ultimosRetiros = retiros.slice(0, 10);
+  const [busqueda, setBusqueda] = useState("");
+
+  const retirosFiltrados = retiros.filter((retiro) => {
+
+    const texto = busqueda.toLowerCase();
+
+    return (
+      retiro.cliente?.toLowerCase().includes(texto) ||
+      retiro.operador?.toLowerCase().includes(texto) ||
+      retiro.producto?.descripcion?.toLowerCase().includes(texto) ||
+      retiro.producto?.codigo?.toLowerCase().includes(texto)
+    );
+
+  });
+
+  const ultimosRetiros =
+    retirosFiltrados.slice(0, 10);
 
   return (
 
     <div className="tabla-retiros">
 
       <h2>Últimos 10 Retiros</h2>
+
+      <input
+        type="text"
+        placeholder="🔍 Buscar cliente, operador o producto..."
+        value={busqueda}
+        onChange={(e) =>
+          setBusqueda(e.target.value)
+        }
+        className="input-busqueda"
+      />
 
       <table>
 
@@ -32,13 +59,13 @@ function TablaRetiros() {
 
             <tr>
               <td colSpan="5">
-                No existen retiros registrados
+                No existen coincidencias
               </td>
             </tr>
 
           ) : (
 
-            ultimosRetiros.map(retiro => (
+            ultimosRetiros.map((retiro) => (
 
               <tr key={retiro.id}>
 
@@ -54,17 +81,15 @@ function TablaRetiros() {
 
                 <td>
 
-                <span
+                  <span
                     className={
-                    retiro.estado === "Aprobado"
+                      retiro.estado === "Aprobado"
                         ? "estado-ok"
                         : "estado-error"
                     }
-                >
-
+                  >
                     {retiro.estado}
-
-                </span>
+                  </span>
 
                 </td>
 

@@ -1,11 +1,7 @@
 import { useState } from "react";
 import inventario from "../../data/inventario";
 
-function StepProducto({
-  formulario,
-  setFormulario,
-  avanzarPaso
-}) {
+function StepProducto({ formulario, setFormulario }) {
 
   const [codigo, setCodigo] = useState("");
   const [resultado, setResultado] = useState(null);
@@ -14,19 +10,23 @@ function StepProducto({
 
     const encontrado = inventario.find(
       item =>
-        item.codigo.toLowerCase() ===
-        codigo.toLowerCase()
+        item.codigo.toLowerCase() === codigo.toLowerCase()
     );
 
     setResultado(encontrado || null);
   };
 
-  const seleccionarProducto = () => {
+  const seleccionarDesdeLista = (codigoSeleccionado) => {
 
-    setFormulario({
-      ...formulario,
-      producto: resultado
-    });
+    const encontrado = inventario.find(
+      item => item.codigo === codigoSeleccionado
+    );
+
+    setResultado(encontrado || null);
+
+    if (encontrado) {
+      setCodigo(encontrado.codigo);
+    }
   };
 
   return (
@@ -35,25 +35,44 @@ function StepProducto({
 
       <div className="form-group">
 
+        <label>Seleccionar Producto</label>
+
+        <select
+          value={codigo}
+          onChange={(e) =>
+            seleccionarDesdeLista(e.target.value)
+          }
+        >
+          <option value="">
+            Seleccione un producto
+          </option>
+
+          {inventario.map((producto) => (
+
+            <option
+              key={producto.codigo}
+              value={producto.codigo}
+            >
+              {producto.codigo} - {producto.descripcion}
+            </option>
+
+          ))}
+
+        </select>
+
+      </div>
+
+      <div className="form-group">
+
         <label>Código del Pedido</label>
 
         <input
-          id="codigoPedido"
           type="text"
           value={codigo}
           placeholder="Ej: TV001"
           onChange={(e) =>
             setCodigo(e.target.value)
           }
-          onKeyDown={(e) => {
-
-            if (e.key === "Enter") {
-
-              buscarProducto();
-
-            }
-
-          }}
         />
 
       </div>
@@ -64,22 +83,7 @@ function StepProducto({
 
       {resultado && (
 
-        <div
-          className="producto-card"
-          tabIndex="0"
-          onKeyDown={(e) => {
-
-            if (
-              e.key === "Enter" &&
-              resultado.stock > 0
-            ) {
-
-              seleccionarProducto();
-
-            }
-
-          }}
-        >
+        <div className="producto-card">
 
           <h3>
             {resultado.descripcion}
@@ -114,7 +118,12 @@ function StepProducto({
 
           <button
             disabled={resultado.stock <= 0}
-            onClick={seleccionarProducto}
+            onClick={() =>
+              setFormulario({
+                ...formulario,
+                producto: resultado
+              })
+            }
           >
             Seleccionar Pedido
           </button>
