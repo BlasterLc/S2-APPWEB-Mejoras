@@ -27,11 +27,6 @@ function StepProducto({
       ...formulario,
       producto: resultado
     });
-
-    setTimeout(() => {
-      avanzarPaso();
-    }, 100);
-
   };
 
   return (

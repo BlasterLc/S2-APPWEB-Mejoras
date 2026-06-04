@@ -190,3 +190,30 @@
 
   color: #000;
 }
+
+.btn-limpiar {
+
+  margin: 1rem 0 2rem 0;
+
+  padding: 12px 20px;
+
+  border: none;
+
+  border-radius: 8px;
+
+  background: #dc3545;
+
+  color: white;
+
+  font-weight: bold;
+
+  cursor: pointer;
+
+  transition: 0.2s;
+}
+
+.btn-limpiar:hover {
+
+  opacity: 0.9;
+
+}

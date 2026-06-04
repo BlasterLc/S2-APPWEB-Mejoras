@@ -9,7 +9,7 @@ import GraficoProductos from "../components/Dashboard/GraficoProductos";
 
 function Dashboard() {
 
-  const { retiros } = useRetiros();
+  const { retiros, setRetiros } = useRetiros();
 
   const totalRetiros = retiros.length;
 
@@ -26,11 +26,34 @@ function Dashboard() {
       ? ((aprobados / totalRetiros) * 100).toFixed(1)
       : 0;
 
+  const limpiarHistorial = () => {
+
+    const confirmar = window.confirm(
+      "¿Está seguro de eliminar todo el historial de retiros?"
+    );
+
+    if (!confirmar) return;
+
+    setRetiros([]);
+
+    localStorage.removeItem("retiros");
+
+    alert("Historial eliminado correctamente");
+
+  };
+
   return (
 
     <div className="dashboard">
 
       <h1>Dashboard de Métricas</h1>
+
+      <button
+        className="btn-limpiar"
+        onClick={limpiarHistorial}
+      >
+        🗑 Limpiar Historial
+      </button>
 
       <div className="cards-metricas">
 
@@ -55,7 +78,7 @@ function Dashboard() {
         </div>
 
       </div>
-      
+
       <div className="graficos-container">
 
         <GraficoEstados />
