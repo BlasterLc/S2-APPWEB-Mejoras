@@ -1,4 +1,7 @@
-function StepConfirmacion({ formulario, confirmarEntrega }) {
+function StepConfirmacion({
+  formulario,
+  confirmarEntrega
+}) {
 
   return (
     <>
@@ -51,8 +54,18 @@ function StepConfirmacion({ formulario, confirmarEntrega }) {
       </div>
 
       <button
+        autoFocus
         className="btn-confirmar"
         onClick={confirmarEntrega}
+        onKeyDown={(e) => {
+
+          if (e.key === "Enter") {
+
+            confirmarEntrega();
+
+          }
+
+        }}
       >
         Confirmar Entrega
       </button>

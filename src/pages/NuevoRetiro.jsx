@@ -132,6 +132,57 @@ setPaso(1);
 
 };
 
+const avanzarPaso = () => {
+
+  if (
+    paso === 1 &&
+    (!formulario.operador || !formulario.sucursal)
+  ) {
+    alert("Complete los datos del operador");
+    return;
+  }
+
+  if (
+    paso === 2 &&
+    !formulario.cliente
+  ) {
+    alert("Ingrese el nombre del cliente");
+    return;
+  }
+
+  if (
+    paso === 3 &&
+    (
+      !formulario.tipoDocumento ||
+      !formulario.numeroDocumento ||
+      !formulario.fechaVencimiento
+    )
+  ) {
+    alert("Complete los datos del documento");
+    return;
+  }
+
+  if (
+    paso === 4 &&
+    !formulario.tipoRetiro
+  ) {
+    alert("Seleccione quién retira");
+    return;
+  }
+
+  if (
+    paso === 6 &&
+    !formulario.producto
+  ) {
+    alert("Seleccione un producto");
+    return;
+  }
+
+  if (paso < 7) {
+    setPaso(paso + 1);
+  }
+};
+
 return (
 
 <div className="retiro-container">
@@ -143,8 +194,8 @@ return (
     <StepOperador
       formulario={formulario}
       setFormulario={setFormulario}
+      avanzarPaso={avanzarPaso}
     />
-
   )}
 
   {paso === 2 && (
@@ -152,6 +203,7 @@ return (
     <StepCliente
       formulario={formulario}
       setFormulario={setFormulario}
+      avanzarPaso={avanzarPaso}
     />
 
   )}
@@ -161,6 +213,7 @@ return (
     <StepDocumento
       formulario={formulario}
       setFormulario={setFormulario}
+      avanzarPaso={avanzarPaso}
     />
 
   )}
@@ -170,6 +223,7 @@ return (
     <StepTipoRetiro
       formulario={formulario}
       setFormulario={setFormulario}
+      avanzarPaso={avanzarPaso}
     />
 
   )}
@@ -179,6 +233,7 @@ return (
     <StepAutorizacion
       formulario={formulario}
       setFormulario={setFormulario}
+      avanzarPaso={avanzarPaso}
     />
 
   )}
@@ -188,6 +243,7 @@ return (
     <StepProducto
       formulario={formulario}
       setFormulario={setFormulario}
+      avanzarPaso={avanzarPaso}
     />
 
   )}
@@ -215,59 +271,7 @@ return (
       Anterior
     </button>
 
-    <button
-      onClick={() => {
-
-        if (
-          paso === 1 &&
-          (!formulario.operador || !formulario.sucursal)
-        ) {
-          alert("Complete los datos del operador");
-          return;
-        }
-
-        if (
-          paso === 2 &&
-          !formulario.cliente
-        ) {
-          alert("Ingrese el nombre del cliente");
-          return;
-        }
-
-        if (
-          paso === 3 &&
-          (
-            !formulario.tipoDocumento ||
-            !formulario.numeroDocumento ||
-            !formulario.fechaVencimiento
-          )
-        ) {
-          alert("Complete los datos del documento");
-          return;
-        }
-
-        if (
-          paso === 4 &&
-          !formulario.tipoRetiro
-        ) {
-          alert("Seleccione quién retira");
-          return;
-        }
-
-        if (
-          paso === 6 &&
-          !formulario.producto
-        ) {
-          alert("Seleccione un producto");
-          return;
-        }
-
-        if (paso < 7) {
-          setPaso(paso + 1);
-        }
-
-      }}
-    >
+    <button onClick={avanzarPaso}>
       Siguiente
     </button>
 

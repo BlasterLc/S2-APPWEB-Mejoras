@@ -1,7 +1,11 @@
 import { useState } from "react";
 import inventario from "../../data/inventario";
 
-function StepProducto({ formulario, setFormulario }) {
+function StepProducto({
+  formulario,
+  setFormulario,
+  avanzarPaso
+}) {
 
   const [codigo, setCodigo] = useState("");
   const [resultado, setResultado] = useState(null);
@@ -10,10 +14,24 @@ function StepProducto({ formulario, setFormulario }) {
 
     const encontrado = inventario.find(
       item =>
-        item.codigo.toLowerCase() === codigo.toLowerCase()
+        item.codigo.toLowerCase() ===
+        codigo.toLowerCase()
     );
 
     setResultado(encontrado || null);
+  };
+
+  const seleccionarProducto = () => {
+
+    setFormulario({
+      ...formulario,
+      producto: resultado
+    });
+
+    setTimeout(() => {
+      avanzarPaso();
+    }, 100);
+
   };
 
   return (
@@ -25,12 +43,22 @@ function StepProducto({ formulario, setFormulario }) {
         <label>Código del Pedido</label>
 
         <input
+          id="codigoPedido"
           type="text"
           value={codigo}
           placeholder="Ej: TV001"
           onChange={(e) =>
             setCodigo(e.target.value)
           }
+          onKeyDown={(e) => {
+
+            if (e.key === "Enter") {
+
+              buscarProducto();
+
+            }
+
+          }}
         />
 
       </div>
@@ -41,27 +69,39 @@ function StepProducto({ formulario, setFormulario }) {
 
       {resultado && (
 
-        <div className="producto-card">
+        <div
+          className="producto-card"
+          tabIndex="0"
+          onKeyDown={(e) => {
+
+            if (
+              e.key === "Enter" &&
+              resultado.stock > 0
+            ) {
+
+              seleccionarProducto();
+
+            }
+
+          }}
+        >
 
           <h3>
             {resultado.descripcion}
           </h3>
 
           <p>
-            <strong>Código:</strong>
-            {" "}
+            <strong>Código:</strong>{" "}
             {resultado.codigo}
           </p>
 
           <p>
-            <strong>Estado:</strong>
-            {" "}
+            <strong>Estado:</strong>{" "}
             {resultado.estado}
           </p>
 
           <p>
-            <strong>Stock:</strong>
-            {" "}
+            <strong>Stock:</strong>{" "}
             {resultado.stock}
           </p>
 
@@ -79,12 +119,7 @@ function StepProducto({ formulario, setFormulario }) {
 
           <button
             disabled={resultado.stock <= 0}
-            onClick={() =>
-              setFormulario({
-                ...formulario,
-                producto: resultado
-              })
-            }
+            onClick={seleccionarProducto}
           >
             Seleccionar Pedido
           </button>
@@ -115,9 +150,7 @@ function StepProducto({ formulario, setFormulario }) {
 
           <br />
 
-          Código:
-          {" "}
-          {formulario.producto.codigo}
+          Código: {formulario.producto.codigo}
 
         </div>
 
