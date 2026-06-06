@@ -1,16 +1,8 @@
-# React + Vite
+INSTRUCCIONES DE INSTALACIÓN
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
-
-Currently, two official plugins are available:
-
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
-
-## React Compiler
-
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
-
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+- Ingrese a https://nodejs.org/en/download, descargue el instalador de node.js y ejecute el instalador
+- En una terminal, navegue hasta el directorio donde desea guardar el proyecto y clone el repositorio ejecutando el comando "git clone https://github.com/Kapriutska21/S2-APPWEB-Desarrollo-FrontEnd.git"
+- Navegue hasta el directorio del proyecto (en este caso, RUTA-HASTA-EL-DIRECTORIO-DONDE-SE-HIZO-CLONE\S2-APPWEB-Desarrollo-FrontEnd)
+- Ejecute el comando "npm install" para descargar las dependencias necesarias
+- Ejecute el comando "npm run dev" para levantar un servidor local y ejecutar la aplicación en modo desarrollo
+- Ingrese la dirección localhost en su navegador o haga click en el enlace para abrir la aplicacion
