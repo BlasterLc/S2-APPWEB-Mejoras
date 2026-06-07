@@ -51,7 +51,7 @@ function Contacto() {
         </p>
 
         <p>
-          <strong>Institución:</strong> Universidad San Sebastían
+          <strong>Institución:</strong> Universidad San Sebastián
         </p>
 
         <p>
