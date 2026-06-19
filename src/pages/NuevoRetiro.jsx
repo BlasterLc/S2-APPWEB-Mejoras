@@ -42,12 +42,9 @@ producto: null
 
 const determinarEstado = () => {
 
-const fechaActual = new Date();
+const hoy = new Date().toISOString().split("T")[0];
 
-const fechaDocumento =
-  new Date(formulario.fechaVencimiento);
-
-if (fechaDocumento < fechaActual) {
+if (formulario.fechaVencimiento < hoy) {
 
   return {
     estado: "Rechazado",
@@ -162,6 +159,13 @@ const avanzarPaso = () => {
     return;
   }
 
+  if (paso === 3) {
+    const hoy = new Date().toISOString().split("T")[0];
+    if (formulario.fechaVencimiento < hoy) {
+      alert("No se puede continuar: el documento está vencido");
+      return;
+    }
+  }
   if (
     paso === 4 &&
     !formulario.tipoRetiro

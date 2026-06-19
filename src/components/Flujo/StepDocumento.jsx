@@ -29,9 +29,10 @@ function StepDocumento({
   avanzarPaso
 }) {
 
+  const hoy = new Date().toISOString().split("T")[0];
   const documentoVencido =
     formulario.fechaVencimiento &&
-    new Date(formulario.fechaVencimiento) < new Date();
+    formulario.fechaVencimiento < hoy;
 
   const anioActual = new Date().getFullYear();
   const anioMinimo = anioActual - 20;
