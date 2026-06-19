@@ -8,6 +8,10 @@ function StepDocumento({
     formulario.fechaVencimiento &&
     new Date(formulario.fechaVencimiento) < new Date();
 
+  const fechaMaxima = new Date();
+  fechaMaxima.setFullYear(fechaMaxima.getFullYear() + 20);
+  const fechaMaximaTexto = fechaMaxima.toISOString().split("T")[0];
+
   return (
     <>
       <h2>Validación de Documento</h2>
@@ -81,13 +85,20 @@ function StepDocumento({
         <input
           id="fechaVencimiento"
           type="date"
+          max={fechaMaximaTexto}
           value={formulario.fechaVencimiento || ""}
-          onChange={(e) =>
+          onChange={(e) => {
+
+            if (e.target.value && new Date(e.target.value) > fechaMaxima) {
+              return;
+            }
+
             setFormulario({
               ...formulario,
               fechaVencimiento: e.target.value
-            })
-          }
+            });
+
+          }}
           onKeyDown={(e) => {
 
             if (e.key === "Enter") {
