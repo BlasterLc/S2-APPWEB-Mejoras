@@ -12,9 +12,8 @@ function StepOperador({
 
         <label>Nombre del Operador</label>
 
-        <input
+        <select
           id="operador"
-          type="text"
           value={formulario.operador}
           onChange={(e) =>
             setFormulario({
@@ -33,7 +32,13 @@ function StepOperador({
             }
 
           }}
-        />
+        >
+          <option value="">Seleccione</option>
+          <option value="Operador 1">Operador 1</option>
+          <option value="Operador 2">Operador 2</option>
+          <option value="Operador 3">Operador 3</option>
+          <option value="Operador 4">Operador 4</option>
+        </select>
 
       </div>
 

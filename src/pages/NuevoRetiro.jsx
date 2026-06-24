@@ -7,11 +7,14 @@ import StepTipoRetiro from "../components/Flujo/StepTipoRetiro";
 import StepAutorizacion from "../components/Flujo/StepAutorizacion";
 import StepProducto from "../components/Flujo/StepProducto";
 import StepConfirmacion from "../components/Flujo/StepConfirmacion";
+import StepFinal from "../components/Flujo/StepFinal";
 import { useRetiros } from "../context/RetiroContext";
 
 function NuevoRetiro() {
 
 const [paso, setPaso] = useState(1);
+const [completado, setCompletado] = useState(false);
+const [resultadoFinal, setResultadoFinal] = useState(null);
 
 const { retiros, setRetiros } = useRetiros();
 
@@ -25,8 +28,6 @@ cliente: "",
 tipoDocumento: "",
 numeroDocumento: "",
 fechaVencimiento: "",
-
-documentoVigente: false,
 
 tipoRetiro: "",
 
@@ -91,15 +92,12 @@ setRetiros(prev => [
   ...prev
 ]);
 
-if (resultado.estado === "Aprobado") {
+setResultadoFinal(resultado);
+setCompletado(true);
 
-  alert("Entrega aprobada");
+};
 
-} else {
-
-  alert("Entrega rechazada: " + resultado.motivo);
-
-}
+const iniciarNuevoRetiro = () => {
 
 setFormulario({
 
@@ -112,8 +110,6 @@ setFormulario({
   numeroDocumento: "",
   fechaVencimiento: "",
 
-  documentoVigente: false,
-
   tipoRetiro: "",
 
   tercero: "",
@@ -125,6 +121,8 @@ setFormulario({
   producto: null
 });
 
+setResultadoFinal(null);
+setCompletado(false);
 setPaso(1);
 
 };
@@ -175,6 +173,34 @@ const avanzarPaso = () => {
   }
 
   if (
+    paso === 4 &&
+    formulario.tipoRetiro === "tercero" &&
+    !formulario.tercero
+  ) {
+    alert("Ingrese el nombre del tercero");
+    return;
+  }
+
+  if (
+    paso === 5 &&
+    formulario.tipoRetiro === "tercero" &&
+    !formulario.autorizacion
+  ) {
+    alert("Se requiere autorización para continuar");
+    return;
+  }
+
+  if (
+    paso === 5 &&
+    formulario.tipoRetiro === "tercero" &&
+    formulario.autorizacion &&
+    !formulario.numeroAutorizacion
+  ) {
+    alert("Ingrese el número de autorización");
+    return;
+  }
+
+  if (
     paso === 6 &&
     !formulario.producto
   ) {
@@ -190,6 +216,16 @@ const avanzarPaso = () => {
 return (
 
 <div className="retiro-container">
+
+  {completado && (
+    <StepFinal
+      resultado={resultadoFinal}
+      onNuevoRetiro={iniciarNuevoRetiro}
+    />
+  )}
+
+  {!completado && (
+  <>
 
   <Stepper paso={paso} />
 
@@ -280,6 +316,9 @@ return (
     </button>
 
   </div>
+
+  </>
+  )}
 
 </div>
 
