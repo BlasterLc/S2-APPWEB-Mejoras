@@ -2,11 +2,10 @@ function Stepper({ paso }) {
 
   const pasos = [
     "Operador",
-    "Cliente",
+    "Pedido",
     "Documento",
     "Tipo Retiro",
     "Autorización",
-    "Producto",
     "Confirmación"
   ];
 

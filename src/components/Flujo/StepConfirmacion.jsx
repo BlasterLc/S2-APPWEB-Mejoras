@@ -16,7 +16,7 @@ function StepConfirmacion({
         <p>{formulario.sucursal}</p>
 
         <h3>Cliente</h3>
-        <p>{formulario.cliente}</p>
+        <p>{formulario.pedido?.cliente}</p>
 
         <h3>Documento</h3>
         <p>
@@ -48,7 +48,7 @@ function StepConfirmacion({
         <h3>Producto</h3>
 
         <p>
-          {formulario.producto?.descripcion}
+          {formulario.pedido?.producto?.descripcion}
         </p>
 
       </div>
