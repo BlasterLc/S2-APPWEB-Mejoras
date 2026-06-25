@@ -4,6 +4,7 @@ import { buscarPedido, listarProductos } from "../../services/api";
 function StepPedido({ formulario, setFormulario }) {
 
   const [productos, setProductos] = useState([]);
+  const [productosListos, setProductosListos] = useState(false);
   const [codigo, setCodigo] = useState("");
   const [resultado, setResultado] = useState(null);
   const [buscando, setBuscando] = useState(false);
@@ -12,7 +13,8 @@ function StepPedido({ formulario, setFormulario }) {
 
     listarProductos()
       .then(setProductos)
-      .catch(() => setProductos([]));
+      .catch(() => setProductos([]))
+      .finally(() => setProductosListos(true));
 
   }, []);
 
@@ -20,18 +22,22 @@ function StepPedido({ formulario, setFormulario }) {
 
     setBuscando(true);
 
-    const pedidoEncontrado = await buscarPedido(codigo.trim());
+    try {
+      const pedidoEncontrado = await buscarPedido(codigo.trim());
 
-    if (!pedidoEncontrado) {
+      if (!pedidoEncontrado) {
+        setResultado(null);
+        return;
+      }
+
+      const producto = productos.find((p) => p.id === pedidoEncontrado.producto) || null;
+
+      setResultado({ ...pedidoEncontrado, producto });
+    } catch {
       setResultado(null);
+    } finally {
       setBuscando(false);
-      return;
     }
-
-    const producto = productos.find((p) => p.id === pedidoEncontrado.producto) || null;
-
-    setResultado({ ...pedidoEncontrado, producto });
-    setBuscando(false);
   };
 
   return (
@@ -53,7 +59,7 @@ function StepPedido({ formulario, setFormulario }) {
 
       </div>
 
-      <button className="btn-buscar" onClick={buscar} disabled={!codigo || buscando}>
+      <button className="btn-buscar" onClick={buscar} disabled={!codigo || buscando || !productosListos}>
         Buscar Pedido
       </button>
 
