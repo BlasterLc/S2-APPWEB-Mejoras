@@ -7,6 +7,7 @@ import {
 
 import {
   listarProductos,
+  listarPedidos,
   listarRetiros,
   adaptarRetiroDesdeApi
 } from "../services/api";
@@ -19,12 +20,12 @@ export function RetiroProvider({ children }) {
 
   useEffect(() => {
 
-    Promise.all([listarProductos(), listarRetiros()])
-      .then(([productos, retirosApi]) => {
+    Promise.all([listarProductos(), listarPedidos(), listarRetiros()])
+      .then(([productos, pedidos, retirosApi]) => {
 
         setRetiros(
           retirosApi.map((retiro) =>
-            adaptarRetiroDesdeApi(retiro, productos)
+            adaptarRetiroDesdeApi(retiro, pedidos, productos)
           )
         );
 
