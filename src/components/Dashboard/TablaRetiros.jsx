@@ -69,7 +69,7 @@ function TablaRetiros() {
 
               <tr key={retiro.id}>
 
-                <td>{retiro.fecha}</td>
+                <td>{new Date(retiro.fecha).toLocaleString('es-CL')}</td>
 
                 <td>{retiro.cliente}</td>
 
