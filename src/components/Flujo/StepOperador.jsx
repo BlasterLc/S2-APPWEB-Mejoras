@@ -25,9 +25,7 @@ function StepOperador({
 
             if (e.key === "Enter") {
 
-              document
-                .getElementById("sucursal")
-                .focus();
+              avanzarPaso();
 
             }
 
@@ -46,30 +44,7 @@ function StepOperador({
 
         <label>Sucursal</label>
 
-        <select
-          id="sucursal"
-          value={formulario.sucursal}
-          onChange={(e) =>
-            setFormulario({
-              ...formulario,
-              sucursal: e.target.value
-            })
-          }
-          onKeyDown={(e) => {
-
-            if (e.key === "Enter") {
-
-              avanzarPaso();
-
-            }
-
-          }}
-        >
-          <option value="">Seleccione</option>
-          <option value="Sucursal A">Sucursal A</option>
-          <option value="Sucursal B">Sucursal B</option>
-          <option value="Sucursal C">Sucursal C</option>
-        </select>
+        <p className="campo-fijo">{formulario.sucursal}</p>
 
       </div>
 

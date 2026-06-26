@@ -18,10 +18,12 @@ const [resultadoFinal, setResultadoFinal] = useState(null);
 
 const { retiros, setRetiros } = useRetiros();
 
+const SUCURSAL = import.meta.env.VITE_SUCURSAL ?? "";
+
 const [formulario, setFormulario] = useState({
 
 operador: "",
-sucursal: "",
+sucursal: SUCURSAL,
 
 pedido: null,
 
@@ -81,7 +83,7 @@ const iniciarNuevoRetiro = () => {
 setFormulario({
 
   operador: "",
-  sucursal: "",
+  sucursal: SUCURSAL,
 
   pedido: null,
 
