@@ -18,7 +18,7 @@ const [resultadoFinal, setResultadoFinal] = useState(null);
 
 const { retiros, setRetiros } = useRetiros();
 
-const SUCURSAL = import.meta.env.VITE_SUCURSAL ?? "";
+const SUCURSAL = import.meta.env.VITE_SUCURSAL ?? "Sucursal 1";
 
 const [formulario, setFormulario] = useState({
 
